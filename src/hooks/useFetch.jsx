@@ -7,17 +7,15 @@ function useFetch(url) {
     const [error, setError] = useState(false);
 
     useEffect(() => {
+        setLoading(true);
         fetch(url)
-        .then(res => res.json())
-        .then(Json => {
-            setData(Json);
-            setLoading(false);
+        .then(res => {
+            if (!res.ok) throw new Error("Network response was not ok");
+            return res.json();
         })
-        .catch(err => {
-            console.error(err);
-            setError(true);
-            setLoading(false);
-        });
+        .then(Json => setData(Json))
+        .catch(err => setError(err))
+        .finally(() => setLoading(false));
 }, [url]);
         
     return { data, loading, error };

@@ -8,6 +8,8 @@ import { Routes, Route, Link } from 'react-router-dom'
 import Home from './pages/Home'
 import About from './pages/About'
 import Users from './pages/Users'
+import UserDetails from './pages/UserDetails'
+import Navbar from './components/Navbar'
 
 function App() {
   const course = "React";
@@ -42,14 +44,11 @@ function App() {
   return (
     <>
     <div>
-      <nav>
-        <Link to="/">Home</Link> |{" "}
-        <Link to="/users">Users</Link> |{" "}
-        <Link to="/about">About</Link> |{" "}
-      </nav>
+      <Navbar />
         <Routes>
           <Route path='/' element={<Home />}></Route>
           <Route path='/users' element={<Users />}></Route>
+          <Route path='/users/:id' element={<user/>}></Route>
           <Route path='/about' element={<About />}></Route>
         </Routes>
     </div>
