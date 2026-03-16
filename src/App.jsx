@@ -10,10 +10,16 @@ import About from './pages/About'
 import Users from './pages/Users'
 import UserDetails from './pages/UserDetails'
 import Navbar from './components/Navbar'
+import { useContext } from 'react'
+import { ThemeContext } from './context/ThemeContext'
+import Layout from './components/Layout'
+
 
 function App() {
   const course = "React";
   const [count, setCount] = useState(0);
+
+  const { theme } = useContext(ThemeContext);
   
   const products = [
     { name: "Nike shoes", price:50 },
@@ -42,15 +48,22 @@ function App() {
 
 
   return (
-    <>
-    <div>
-      <Navbar />
+    <div
+    >
+    <div
+    style={{
+      backgroundColor: theme === "light" ? "#f5f5f5" : "#1a1a1a",
+      color: theme === "light" ? "#000" : "#fff",
+      minHeight: "100vh",
+    }}>
+      <Layout>
         <Routes>
           <Route path='/' element={<Home />}></Route>
           <Route path='/users' element={<Users />}></Route>
-          <Route path='/users/:id' element={<user/>}></Route>
+          <Route path='/users/:id' element={<UserDetails />}></Route>
           <Route path='/about' element={<About />}></Route>
         </Routes>
+        </Layout>
     </div>
 
 
@@ -93,7 +106,7 @@ function App() {
         ))}
       </ul>
 
-    </>
+    </div>
 
     
     

@@ -1,18 +1,21 @@
 import useFetch from "../hooks/useFetch";
 import UserCard from "../components/UserCard";
 import { useState } from "react";
+import Loading from "../components/Loading";
+import ErrorMessage from "../components/ErrorMessage";
+
 
 
 function Users() {
-    const { data, loading, erroe } = useFetch(
+    const { data, loading, error } = useFetch(
         "https://jsonplaceholder.typicode.com/users"
 
     );
 
     const [search, setSearch] = useState("");
 
-    if (loading) return <p>Loading...</p>
-    if (erroe) return <p>Error fetching data</p>
+    if (loading) return <Loading />
+    if (error) return <ErrorMessage message="Failed to fetch users" />
 
     const filterUsers = data.filter(user =>
         user.name.toLowerCase().includes(search.toLowerCase())
